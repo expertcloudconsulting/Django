@@ -31,7 +31,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: hub.docker.com/shridhanr/django:latest
+          tags: shridhanr/django:latest
 
   deploy:
     runs-on: ubuntu-latest
