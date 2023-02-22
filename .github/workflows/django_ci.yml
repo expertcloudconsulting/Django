@@ -54,5 +54,5 @@ jobs:
           ARGOCD_PASSWORD: ${{ secrets.ARGOCD_PASSWORD }}
         run: |
           argocd login $ARGOCD_SERVER --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD --insecure
-          argocd app create my-django-app --repo https://github.com/my-org/my-django-app.git --path . --dest-server https://6C8CE2BED5817EE48A15AEBF0BA8C5EB.gr7.ap-south-1.eks.amazonaws.com --dest-namespace argocd --sync-policy automated --auto-prune
+          argocd app create my-django-app --repo https://github.com/expertcloudconsulting/Django.git --path . --dest-server https://6C8CE2BED5817EE48A15AEBF0BA8C5EB.gr7.ap-south-1.eks.amazonaws.com --dest-namespace argocd --sync-policy automated --auto-prune
           argocd app sync my-django-app
