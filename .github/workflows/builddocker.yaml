@@ -18,6 +18,6 @@ jobs:
       - name: Build container image
         run: |
           docker build \
-          -t your-username/your-image-name:${GITHUB_SHA::7} \
-          -t your-username/your-image-name:latest \
+          -t shridhanr/djangoapp:${GITHUB_SHA::7} \
+          -t shridhanr/djangoapp:latest \
           .
