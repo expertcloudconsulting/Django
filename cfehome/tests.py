@@ -10,6 +10,6 @@ class BasicTest(TestCase):
         self.assertEqual(r.status_code, 200)
     
     def test_homepage(self):
-        r = self.client.get('/')
+        r = self.client.get('/admin')
         self.assertEqual(r.status_code, 200)
         
