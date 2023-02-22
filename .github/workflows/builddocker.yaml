@@ -18,10 +18,10 @@ jobs:
       - name: Build container image
         run: |
           docker build \
-          -t shridhanr/djangoapp:${GITHUB_SHA::7} \
-          -t shridhanr/djangoapp:latest \
+          -t shridhanr/django:${GITHUB_SHA::7} \
+          -t shridhanr/django:latest \
           .
       - name: Push container image
         run: |
           docker login -u=${secrets.DOCKER_USERNAME} -p=${secrets.DOCKER_PASSWORD}
-          docker push shridhanr/djangoapp:latest
+          docker push shridhanr/django:latest
