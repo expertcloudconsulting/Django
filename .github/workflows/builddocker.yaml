@@ -47,7 +47,6 @@ jobs:
           ARGOCD_USERNAME: ${{ secrets.ARGOCD_USERNAME }}
           ARGOCD_PASSWORD: ${{ secrets.ARGOCD_PASSWORD }}
         run: |
-          aws eks update-kubeconfig --name Basik_prod-cluster --region ap-south-1 
           argocd login $ARGOCD_SERVER --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD --insecure
-          argocd app create mydjangoapp --project djangotest --repo https://github.com/expertcloudconsulting/Django.git --path . --dest-server https://kubernetes.default.svc --dest-namespace argocd --sync-policy automated --auto-prune 
+          argocd app create mydjangoapp --project default --repo https://github.com/expertcloudconsulting/Django.git --path "." --dest-server https://kubernetes.default.svc --dest-namespace argocd --sync-policy automated --auto-prune 
           argocd app sync mydjangoapp
