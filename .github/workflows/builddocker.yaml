@@ -28,3 +28,25 @@ jobs:
       - name: Push container image
         run: |
           docker push shridhanr/django:latest
+
+      - name: Install ArgoCD CLI
+        run: |
+          curl -LO https://github.com/argoproj/argo-cd/releases/download/v2.1.1/argocd-linux-amd64
+          chmod +x argocd-linux-amd64
+          sudo mv argocd-linux-amd64 /usr/local/bin/argocd
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      
+      - name: Deploy with ArgoCD
+        env:
+          ARGOCD_SERVER: argocd-server.argocd.svc.cluster.local
+          ARGOCD_USERNAME: ${{ secrets.ARGOCD_USERNAME }}
+          ARGOCD_PASSWORD: ${{ secrets.ARGOCD_PASSWORD }}
+        run: |
+          argocd login $ARGOCD_SERVER --username $ARGOCD_USERNAME --password $ARGOCD_PASSWORD --insecure
+          argocd app create my-django-app --repo https://github.com/expertcloudconsulting/Django.git --path . --dest-server https://6C8CE2BED5817EE48A15AEBF0BA8C5EB.gr7.ap-south-1.eks.amazonaws.com --dest-namespace argocd --sync-policy automated --auto-prune
+          argocd app sync my-django-app
